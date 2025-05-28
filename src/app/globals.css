@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 250, 205; /* 淡黄色背景 */
+  --background-end-rgb: 255, 255, 255;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-family: 'Comic Neue', cursive;
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-primary text-white rounded-xl border-b-4 border-red-700 hover:bg-red-400 hover:translate-y-1 hover:border-b-2 transition-all duration-200 font-bold shadow-cartoon;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 bg-secondary text-white rounded-xl border-b-4 border-teal-700 hover:bg-teal-400 hover:translate-y-1 hover:border-b-2 transition-all duration-200 font-bold shadow-cartoon;
+  }
+  
+  .btn-accent {
+    @apply px-4 py-2 bg-accent text-gray-800 rounded-xl border-b-4 border-yellow-600 hover:bg-yellow-300 hover:translate-y-1 hover:border-b-2 transition-all duration-200 font-bold shadow-cartoon;
+  }
+  
+  .input {
+    @apply px-4 py-2 border-2 border-pastel-blue rounded-xl focus:outline-none focus:ring-2 focus:ring-primary bg-white shadow-sm;
+  }
+  
+  .card {
+    @apply bg-white p-6 rounded-2xl shadow-cartoon-lg border-2 border-pastel-pink;
+  }
+  
+  .bubble {
+    @apply bg-pastel-blue p-4 rounded-bubble relative;
+  }
+  
+  .bubble:after {
+    content: '';
+    @apply absolute w-4 h-4 bg-pastel-blue -bottom-2 left-6 rotate-45;
+  }
+  
+  .cartoon-title {
+    @apply text-2xl font-bold text-primary mb-4 tracking-wide;
+  }
+}
+
+/* 简单的动画效果 */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}

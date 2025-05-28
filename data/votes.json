@@ -1,0 +1,32 @@
+[
+  {
+    "studentId": "12345",
+    "studentName": "刘瑞",
+    "classId": 6,
+    "timestamp": "2025-05-26T11:50:17.762Z"
+  },
+  {
+    "studentId": "20328",
+    "studentName": "张三",
+    "classId": 1,
+    "timestamp": "2025-05-27T07:11:05.629Z"
+  },
+  {
+    "studentId": "220205",
+    "studentName": "张四",
+    "classId": 5,
+    "timestamp": "2025-05-27T07:12:11.175Z"
+  },
+  {
+    "studentId": "220328",
+    "studentName": "张三",
+    "classId": 1,
+    "timestamp": "2025-05-28T03:59:59.338Z"
+  },
+  {
+    "studentId": "210328",
+    "studentName": "张三",
+    "classId": 7,
+    "timestamp": "2025-05-28T04:08:23.690Z"
+  }
+]
