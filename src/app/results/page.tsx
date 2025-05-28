@@ -29,6 +29,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [totalVotes, setTotalVotes] = useState(0);
+  const [clearLoading, setClearLoading] = useState(false);
 
   // 获取投票结果
   useEffect(() => {
@@ -195,6 +196,37 @@ export default function ResultsPage() {
     return [...results].sort((a, b) => b.count - a.count);
   };
 
+  // 清空投票处理函数
+  const handleClearVotes = async () => {
+    const password = window.prompt('请输入清空投票的密码：');
+    if (password === null) return; // 用户取消
+    setClearLoading(true);
+    try {
+      const res = await fetch('/api/clear-votes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert('投票数据已清空！');
+        // 重新拉取投票数据
+        setLoading(true);
+        setError('');
+        setResults([]);
+        setTotalVotes(0);
+        // 立即刷新
+        setTimeout(() => window.location.reload(), 500);
+      } else {
+        alert(data.message || '清空失败');
+      }
+    } catch (e) {
+      alert('请求失败，请重试');
+    } finally {
+      setClearLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center mb-6">
@@ -298,6 +330,15 @@ export default function ResultsPage() {
               <span className="mr-1">🏠</span>
               返回首页
             </Link>
+            <button
+              className={`btn-danger flex items-center ml-2 ${clearLoading ? 'opacity-60 cursor-not-allowed' : ''}`}
+              onClick={handleClearVotes}
+              disabled={clearLoading}
+              title="需要密码"
+            >
+              <span className="mr-1">🗑️</span>
+              {clearLoading ? '清空中...' : '一键清空投票'}
+            </button>
             <Link href="/vote" className="btn flex items-center float">
               <span className="mr-1">✅</span>
               去投票
