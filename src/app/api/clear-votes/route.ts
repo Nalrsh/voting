@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-// 数据文件路径
-const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'votes.json');
+import { connectToDatabase } from '@/utils/mongo';
 
 // 仅支持POST请求
 export async function POST(request: Request) {
@@ -19,8 +15,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // 清空投票数据
-    fs.writeFileSync(DATA_FILE_PATH, '[]', 'utf-8');
+    // 连接数据库，清空 votes 集合
+    const { db } = await connectToDatabase();
+    await db.collection('votes').deleteMany({});
 
     return NextResponse.json({ message: '投票数据已清空' });
   } catch (error) {
